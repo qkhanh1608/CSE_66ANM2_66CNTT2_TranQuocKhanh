@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<h2 style="background-color: #add8e6; padding: 10px;">BÀI TẬP 04: Thiết kế FORM mẫu</h2>
+
+<form action="#" method="post" style="max-width: 600px; font-family: sans-serif;">
+    <fieldset>
+        <legend><b>Basic Info</b></legend>
+        <p>Employee ID: <b>9</b></p>
+        <p>Last Name: <input type="text" name="lastname" value="Dodsworth"></p>
+        <p>First Name: <input type="text" name="firstname" value="Anne" style="width: 80%;"></p>
+        
+        <p>Gender: 
+            <br><input type="radio" name="gender"> Male
+            <br><input type="radio" name="gender"> Female
+            <br><input type="radio" name="gender"> XXX
+            <br><input type="radio" name="gender" checked> ZZZ
+        </p>
+
+        <p>Title: <input type="text" name="title" value="Sales Representative" style="width: 80%;"></p>
+        <p>Suffix: <input type="text" name="suffix" value="Ms."></p>
+        <p>BirthDate: <input type="text" name="birthdate" value="1969-07-02 00:00:00"> (?)</p>
+        <p>HireDate: <input type="text" name="hiredate" value="1994-11-15 00:00:00"></p>
+        <p>Reports To: 
+            <select name="reportsto">
+                <option>Buchanan</option>
+                <option>Others</option>
+            </select>
+        </p>
+    </fieldset>
+
+    <fieldset>
+        <legend><b>Contact Info</b></legend>
+        <p>Email: <input type="email" name="email" placeholder="name@example.com" style="width: 80%;"></p>
+        <p>Address: <input type="text" name="address" value="7 Houndstooth Rd." style="width: 80%;"></p>
+        <p>City: <input type="text" name="city" value="London"></p>
+        <p>Country: 
+            <select name="country">
+                <option>Russian Federation</option>
+                <option>UK</option>
+                <option>USA</option>
+            </select>
+        </p>
+        <p>Photo: <input type="text" name="photo" value="EmpID9.bmp" style="width: 80%;"></p>
+    </fieldset>
+
+    <fieldset>
+        <legend><b>Optional Info</b></legend>
+        <p>Notes: <br>
+            <textarea name="notes" rows="5" style="width: 95%;">Anne has a BA degree in English from St. Lawrence College...</textarea>
+        </p>
+        <p>Preferred Shift: 
+            <input type="checkbox" name="shift"> Regular
+            <input type="checkbox" name="shift" checked> Gravy Yard
+           </div>
+</form>
+        <p>Active? <input type="checkbox" name="active" checked></p>
+    </fieldset>
+    </fieldset>
+        </p>
+        <p>Are you human?</p>
+        <div style="display: flex; align-items: flex-end; gap: 10px;">
+            <div>
+                <div style="font-family: 'Courier New', monospace; font-size: 30px; letter-spacing: 8px; font-weight: bold; color: #555; border: 1px dashed #ccc; padding: 5px; background: #fafafa;">
+                    TIDAWO
+                </div>
+                <small style="color: #666;">Click to change</small>
+                <br>
+                <input type="text" style="width: 250px; margin-top: 5px;">
+            </div>
+        </div>
+    </fieldset>
+
+    <div style="border-top: 2px solid #ccc; margin-top: 20px; padding-top: 10px; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <button type="button">◀</button>
+            <button type="button">▶</button>
+            <br>
+            <small>* required</small>
+        </div>
+        
+        <div style="display: flex; gap: 5px;">
+            <button type="submit" style="background-color: #444; color: white; border: none; padding: 5px 15px; display: flex; align-items: center; gap: 5px;">
+                💾 Submit
+            </button>
+            <button type="button" style="background-color: #444; color: white; border: none; padding: 5px 15px; display: flex; align-items: center; gap: 5px;">
+                ✖ Cancel
+            </button>
+        </div>
+
+</head>
+</html>
