@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #3d103d; /* Màu tím đậm bao quanh như trong ảnh mẫu */
+    padding: 20px;
+}
+
+/* Header: Logo vàng, Nav trắng */
+header {
+    border: 2px solid #ff80ab; /* Viền hồng bao quanh header */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+    color: #fdd835;
+    font-style: italic; /* Chữ nghiêng theo mẫu */
+    font-weight: bold;
+    font-size: 22px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 16px;
+}
+
+/* Main content */
+main {
+    border: 2px solid #ff80ab; /* Viền hồng bao quanh main */
+    border-top: none;
+}
+
+/* Hero Section: Ảnh lướt ván */
+.hero {
+    background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('ocean.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid #ff80ab;
+}
+
+.hero-content {
+    background-color: rgba(0, 0, 0, 0.5); /* Khung xám mờ */
+    padding: 30px 50px;
+    text-align: center;
+    color: white;
+}
+
+.hero-content h1 { font-size: 32px; margin-bottom: 5px; }
+.hero-content p { font-size: 14px; margin-bottom: 15px; }
+
+.btn-discover {
+    background-color: #ffeb3b;
+    border: none;
+    padding: 8px 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Highlights Section: Màu nền xanh nhạt */
+.highlights {
+    background-color: #e0f2f1;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.highlights h2 {
+    color: #00796b;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.card img {
+    width: 300px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.city-info {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #00796b;
+    font-size: 12px;
+}
+
+.country { color: #4db6ac; font-weight: normal; }
+
+/* Footer: Nền đen, icon trắng */
+footer {
+    border: 2px solid #ff80ab; /* Viền hồng bao quanh footer */
+    border-top: none;
+    background-color: #1a1a1a;
+    padding: 15px;
+    text-align: center;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    color: white;
+    font-size: 24px;
+}
