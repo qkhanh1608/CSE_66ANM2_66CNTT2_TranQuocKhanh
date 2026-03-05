@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thực hành DOM & Sự kiện</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; transition: background 0.3s; }
+    section { border: 1px solid #ccc; padding: 20px; border-radius: 8px; background: #fff; }
+    button { margin: 5px; padding: 10px; cursor: pointer; }
+    input { padding: 10px; margin-top: 10px; width: 200px; }
+    #greeting { font-weight: bold; color: blue; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+<section>
+  <h2>DOM & Sự kiện</h2>
+  <p id="status">Chưa có tương tác...</p>
+
+  <button id="btnHello">Chào</button>
+  <button id="btnRed">Đổi màu nền thành đỏ</button>
+
+  <div style="margin-top: 20px;">
+    <label>Nhập tên của bạn: </label><br>
+    <input id="nameInput" type="text" placeholder="Gõ tên vào đây..." />
+    <p id="greeting"></p>
+  </div>
+</section>
+
+<script src="main.js"></script>
+</body>
+</html>
