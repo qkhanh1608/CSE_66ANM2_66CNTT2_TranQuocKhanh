@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Form Đăng Ký Nâng Cao</title>
+
+<style>
+body{
+    font-family: Arial;
+    margin:40px;
+}
+
+form{
+    width:400px;
+}
+
+input{
+    width:100%;
+    padding:6px;
+    margin-top:4px;
+}
+
+.error{
+    color:red;
+    font-size:13px;
+}
+
+#nameCount{
+    font-size:13px;
+}
+
+.strength{
+    height:8px;
+    margin-top:5px;
+    background:#ddd;
+}
+
+.strength-bar{
+    height:100%;
+    width:0%;
+}
+
+.weak{background:red;}
+.medium{background:orange;}
+.strong{background:green;}
+
+.password-box{
+    position:relative;
+}
+
+.toggle{
+    position:absolute;
+    right:10px;
+    top:8px;
+    cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2>Đăng Ký</h2>
+
+<form id="form">
+
+<label>Họ và tên</label>
+<input id="fullname" maxlength="50">
+<div id="nameCount">0 / 50</div>
+<div class="error" id="fullnameError"></div>
+
+<label>Email</label>
+<input id="email">
+<div class="error" id="emailError"></div>
+
+<label>Mật khẩu</label>
+
+<div class="password-box">
+<input type="password" id="password">
+<span class="toggle" id="togglePass">👁</span>
+</div>
+
+<div class="strength">
+<div class="strength-bar" id="strengthBar"></div>
+</div>
+
+<div id="strengthText"></div>
+
+<div class="error" id="passwordError"></div>
+
+<br>
+
+<button type="submit">Đăng ký</button>
+
+</form>
+
+<script>
+
+function showError(id,msg){
+document.getElementById(id+"Error").innerText=msg
+}
+
+function clearError(id){
+document.getElementById(id+"Error").innerText=""
+}
+
+function validateFullname(){
+
+let v=document.getElementById("fullname").value.trim()
+
+if(v.length<3){
+showError("fullname","Tên ≥ 3 ký tự")
+return false
+}
+
+clearError("fullname")
+return true
+}
+
+function validateEmail(){
+
+let v=document.getElementById("email").value
+let r=/^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+if(!r.test(v)){
+showError("email","Email không hợp lệ")
+return false
+}
+
+clearError("email")
+return true
+}
+
+function validatePassword(){
+
+let v=document.getElementById("password").value
+let r=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/
+
+if(!r.test(v)){
+showError("password","Mật khẩu yếu")
+return false
+}
+
+clearError("password")
+return true
+}
+
+document.getElementById("form").addEventListener("submit",function(e){
+
+e.preventDefault()
+
+let valid=
+validateFullname() &
+validateEmail() &
+validatePassword()
+
+if(valid){
+alert("Đăng ký thành công 🎉")
+}
+
+})
+
+document.getElementById("fullname").addEventListener("input",function(){
+
+let len=this.value.length
+
+document.getElementById("nameCount").innerText=len+" / 50"
+
+})
+
+document.getElementById("password").addEventListener("input",function(){
+
+let pass=this.value
+
+let bar=document.getElementById("strengthBar")
+let text=document.getElementById("strengthText")
+
+let score=0
+
+if(pass.length>=8) score++
+if(/[A-Z]/.test(pass)) score++
+if(/[0-9]/.test(pass)) score++
+if(/[^A-Za-z0-9]/.test(pass)) score++
+
+bar.className="strength-bar"
+
+if(score<=1){
+bar.style.width="33%"
+bar.classList.add("weak")
+text.innerText="Yếu"
+}
+
+else if(score<=3){
+bar.style.width="66%"
+bar.classList.add("medium")
+text.innerText="Trung bình"
+}
+
+else{
+bar.style.width="100%"
+bar.classList.add("strong")
+text.innerText="Mạnh"
+}
+
+})
+
+document.getElementById("togglePass").onclick=function(){
+
+let pass=document.getElementById("password")
+
+if(pass.type==="password"){
+pass.type="text"
+}else{
+pass.type="password"
+}
+
+}
+
+</script>
+
+</body>
+</html>

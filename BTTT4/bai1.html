@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Bảng Điểm Sinh Viên</title>
+
+<style>
+body{
+    font-family: Arial;
+    margin: 40px;
+}
+
+input{
+    padding:6px;
+    margin-right:10px;
+}
+
+button{
+    padding:6px 12px;
+}
+
+table{
+    border-collapse: collapse;
+    margin-top:20px;
+    width:600px;
+}
+
+th,td{
+    border:1px solid #ccc;
+    padding:8px;
+    text-align:center;
+}
+
+.low{
+    background:yellow;
+}
+
+#stats{
+    margin-top:15px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Bảng Điểm Sinh Viên</h2>
+
+<input id="name" placeholder="Họ tên">
+<input id="score" placeholder="Điểm (0-10)">
+<button onclick="addStudent()">Thêm</button>
+
+<table>
+<thead>
+<tr>
+<th>STT</th>
+<th>Họ tên</th>
+<th>Điểm</th>
+<th>Xếp loại</th>
+<th>Thao tác</th>
+</tr>
+</thead>
+
+<tbody id="tableBody"></tbody>
+</table>
+
+<div id="stats">
+Tổng sinh viên: 0 | Điểm TB: 0
+</div>
+
+<script>
+
+let students = []
+
+function getRank(score){
+    if(score >= 8.5) return "Giỏi"
+    if(score >= 7) return "Khá"
+    if(score >= 5) return "Trung bình"
+    return "Yếu"
+}
+
+function addStudent(){
+
+    let name = document.getElementById("name").value.trim()
+    let score = parseFloat(document.getElementById("score").value)
+
+    if(name === "" || isNaN(score) || score < 0 || score > 10){
+        alert("Nhập dữ liệu hợp lệ!")
+        return
+    }
+
+    students.push({
+        name:name,
+        score:score
+    })
+
+    document.getElementById("name").value=""
+    document.getElementById("score").value=""
+    document.getElementById("name").focus()
+
+    renderTable()
+}
+
+function renderTable(){
+
+    let tbody = document.getElementById("tableBody")
+    tbody.innerHTML=""
+
+    students.forEach((sv,index)=>{
+
+        let rank = getRank(sv.score)
+
+        let row = `
+        <tr class="${sv.score < 5 ? 'low' : ''}">
+            <td>${index+1}</td>
+            <td>${sv.name}</td>
+            <td>${sv.score}</td>
+            <td>${rank}</td>
+            <td>
+                <button data-index="${index}" class="deleteBtn" style="color:red;">Xóa</button>
+            </td>
+        </tr>
+        `
+
+        tbody.innerHTML += row
+    })
+
+    updateStats()
+}
+
+function updateStats(){
+
+    let total = students.length
+
+    let avg = 0
+
+    if(total>0){
+        let sum = students.reduce((s,sv)=>s+sv.score,0)
+        avg = (sum/total).toFixed(2)
+    }
+
+    document.getElementById("stats").innerText =
+    `Tổng sinh viên: ${total} | Điểm TB: ${avg}`
+}
+
+document.getElementById("tableBody").addEventListener("click",function(e){
+
+    if(e.target.classList.contains("deleteBtn")){
+
+        let index = e.target.dataset.index
+
+        students.splice(index,1)
+
+        renderTable()
+    }
+
+})
+
+document.getElementById("score").addEventListener("keypress",function(e){
+    if(e.key === "Enter"){
+        addStudent()
+    }
+})
+
+</script>
+
+</body>
+</html>

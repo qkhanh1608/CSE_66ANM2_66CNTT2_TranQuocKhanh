@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Bộ lọc & Tìm kiếm Sinh Viên</title>
+
+<style>
+body{
+    font-family: Arial;
+    margin:40px;
+}
+
+input,select,button{
+    padding:6px;
+    margin-right:10px;
+}
+
+table{
+    border-collapse: collapse;
+    margin-top:20px;
+    width:700px;
+}
+
+th,td{
+    border:1px solid #ccc;
+    padding:8px;
+    text-align:center;
+}
+
+.low{
+    background:yellow;
+}
+
+th{
+    cursor:pointer;
+}
+
+#noResult{
+    text-align:center;
+    margin-top:10px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Danh Sách Sinh Viên</h2>
+
+<input id="name" placeholder="Họ tên">
+<input id="score" placeholder="Điểm (0-10)">
+<button onclick="addStudent()">Thêm</button>
+
+<br><br>
+
+<input id="search" placeholder="Tìm kiếm tên...">
+<select id="filter">
+<option value="all">Tất cả</option>
+<option>Giỏi</option>
+<option>Khá</option>
+<option>Trung bình</option>
+<option>Yếu</option>
+</select>
+
+<table>
+<thead>
+<tr>
+<th>STT</th>
+<th>Họ tên</th>
+<th id="sortScore">Điểm</th>
+<th>Xếp loại</th>
+<th>Thao tác</th>
+</tr>
+</thead>
+
+<tbody id="tableBody"></tbody>
+</table>
+
+<div id="noResult"></div>
+
+<script>
+
+let students=[]
+let filteredStudents=[]
+
+let sortDirection = null
+
+function getRank(score){
+    if(score>=8.5) return "Giỏi"
+    if(score>=7) return "Khá"
+    if(score>=5) return "Trung bình"
+    return "Yếu"
+}
+
+function addStudent(){
+
+    let name=document.getElementById("name").value.trim()
+    let score=parseFloat(document.getElementById("score").value)
+
+    if(name==="" || isNaN(score) || score<0 || score>10){
+        alert("Dữ liệu không hợp lệ")
+        return
+    }
+
+    students.push({name,score})
+
+    document.getElementById("name").value=""
+    document.getElementById("score").value=""
+    document.getElementById("name").focus()
+
+    applyFilters()
+}
+
+function applyFilters(){
+
+    let keyword=document.getElementById("search").value.toLowerCase()
+    let rankFilter=document.getElementById("filter").value
+
+    filteredStudents = students.filter(sv=>{
+        let matchName = sv.name.toLowerCase().includes(keyword)
+
+        let rank = getRank(sv.score)
+
+        let matchRank = (rankFilter==="all" || rank===rankFilter)
+
+        return matchName && matchRank
+    })
+
+    if(sortDirection){
+
+        filteredStudents.sort((a,b)=>{
+            return sortDirection==="asc" ? a.score-b.score : b.score-a.score
+        })
+
+    }
+
+    renderTable()
+}
+
+function renderTable(){
+
+    let tbody=document.getElementById("tableBody")
+    let noResult=document.getElementById("noResult")
+
+    tbody.innerHTML=""
+
+    if(filteredStudents.length===0){
+        noResult.innerText="Không có kết quả"
+        return
+    }
+
+    noResult.innerText=""
+
+    filteredStudents.forEach((sv,index)=>{
+
+        let rank=getRank(sv.score)
+
+        let row=`
+        <tr class="${sv.score<5?'low':''}">
+            <td>${index+1}</td>
+            <td>${sv.name}</td>
+            <td>${sv.score}</td>
+            <td>${rank}</td>
+            <td><button data-index="${index}" class="deleteBtn">Xóa</button></td>
+        </tr>
+        `
+
+        tbody.innerHTML+=row
+    })
+}
+
+document.getElementById("search").addEventListener("input",applyFilters)
+
+document.getElementById("filter").addEventListener("change",applyFilters)
+
+document.getElementById("sortScore").addEventListener("click",function(){
+
+    if(sortDirection==="asc"){
+        sortDirection="desc"
+        this.innerText="Điểm ▼"
+    }
+    else{
+        sortDirection="asc"
+        this.innerText="Điểm ▲"
+    }
+
+    applyFilters()
+})
+
+document.getElementById("tableBody").addEventListener("click",function(e){
+
+    if(e.target.classList.contains("deleteBtn")){
+
+        let name=e.target.parentElement.parentElement.children[1].innerText
+
+        students = students.filter(sv=>sv.name!==name)
+
+        applyFilters()
+    }
+
+})
+
+document.getElementById("score").addEventListener("keypress",function(e){
+    if(e.key==="Enter") addStudent()
+})
+
+</script>
+
+</body>
+</html>
